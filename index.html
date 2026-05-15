@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El alcance del Estado según cada ideología</title>
+<meta name="description" content="Mapa concéntrico de las ideologías políticas según el alcance del Estado: del anarcocapitalismo al socialismo.">
+<meta name="author" content="Juan Camilo">
+
+<!-- Open Graph for X / WhatsApp / social sharing -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="El alcance del Estado según cada ideología">
+<meta property="og:description" content="¿Cuánto debe estar bajo el control del Estado y cuánto debe ser responsabilidad suya? Cada anillo añade un nuevo dominio de coerción.">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body {
+    background: #1a1a18;
+    color: #E8E6DC;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .card {
+    background: #262624;
+    padding: 56px 40px 48px;
+    border-radius: 12px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    border: 1px solid #3D3B36;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #FF8C1A;
+    font-weight: 500;
+  }
+
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 500;
+    line-height: 1.1;
+    color: #F5F2E8;
+    margin: 14px 0 12px;
+    letter-spacing: -0.015em;
+  }
+
+  .headline em {
+    color: #FF8C1A;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .dek {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #9C9890;
+    line-height: 1.5;
+    max-width: 620px;
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, #FF8C1A 0%, #FF8C1A 60px, #3D3B36 60px, #3D3B36 100%);
+    margin: 28px 0 36px;
+  }
+
+  .diagram-wrapper {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .diagram-wrapper svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .footer-note {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #6B685F;
+    margin-top: 36px;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  /* Lower commentary section */
+  .commentary {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid #3D3B36;
+  }
+
+  .commentary h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #F5F2E8;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .commentary p {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    color: #C4C0B5;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .commentary p em {
+    color: #FF8C1A;
+    font-style: italic;
+  }
+
+  .commentary .pull-quote {
+    border-left: 3px solid #FF8C1A;
+    padding: 4px 0 4px 20px;
+    margin: 24px 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: #E8E6DC;
+    line-height: 1.5;
+  }
+
+  .meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6B685F;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px dashed #3D3B36;
+  }
+
+  .meta-bar span { color: #9C9890; }
+  .meta-bar a {
+    color: #FF8C1A;
+    text-decoration: none;
+    border-bottom: 1px dotted #FF8C1A;
+  }
+  .meta-bar a:hover { color: #FFA640; }
+
+  @media (max-width: 640px) {
+    body { padding: 10px; }
+    .page { padding: 8px; }
+    .card { padding: 32px 20px 28px; }
+    .commentary p { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+<article class="card">
+
+  <div class="eyebrow">Taxonomía ideológica · Mapa concéntrico</div>
+  <h1 class="headline">El alcance del Estado<br/><em>según cada ideología</em></h1>
+  <p class="dek">¿Cuánto debe estar bajo el control del Estado y cuánto debe ser responsabilidad suya? Cada anillo añade un nuevo dominio de coerción al anterior.</p>
+  <div class="rule"></div>
+
+  <div class="diagram-wrapper">
+    <svg viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diag-title diag-desc">
+      <title id="diag-title">Espectro ideológico del alcance del Estado</title>
+      <desc id="diag-desc">Diagrama de anillos concéntricos que muestra qué bienes y servicios provee el Estado según cada ideología: socialismo, progresismo, conservadurismo, liberalismo clásico, minarquismo y anarcocapitalismo.</desc>
+
+      <!-- Axis arrow on the far right -->
+      <line x1="650" y1="80" x2="650" y2="540" stroke="#3D3B36" stroke-width="1"/>
+      <polygon points="646,80 650,68 654,80" fill="#E24B4A"/>
+      <polygon points="646,540 650,552 654,540" fill="#7FB069"/>
+      <text x="640" y="60" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="0.22em" text-anchor="end" fill="#E24B4A" font-weight="500">ESTATISMO</text>
+      <text x="640" y="572" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="0.22em" text-anchor="end" fill="#7FB069" font-weight="500">LIBERALISMO</text>
+      <text x="640" y="586" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="0.18em" text-anchor="end" fill="#6B685F" font-style="italic">(orden espontáneo)</text>
+
+      <!-- Concentric rings -->
+      <ellipse cx="340" cy="310" rx="270" ry="235" fill="#E24B4A" fill-opacity="0.08" stroke="#E24B4A" stroke-width="1.2"/>
+      <ellipse cx="340" cy="320" rx="225" ry="190" fill="#FF8C1A" fill-opacity="0.07" stroke="#FF8C1A" stroke-width="1.2"/>
+      <ellipse cx="340" cy="335" rx="185" ry="155" fill="#D4A04A" fill-opacity="0.07" stroke="#D4A04A" stroke-width="1.2"/>
+      <ellipse cx="340" cy="385" rx="135" ry="100" fill="#5DCAA5" fill-opacity="0.08" stroke="#5DCAA5" stroke-width="1.2"/>
+      <ellipse cx="340" cy="420" rx="95" ry="60" fill="#7FB069" fill-opacity="0.12" stroke="#7FB069" stroke-width="1.5"/>
+
+      <!-- Anarcocapitalismo core -->
+      <circle cx="340" cy="430" r="32" fill="#000000" stroke="#F5F2E8" stroke-width="1.5" stroke-dasharray="2 3"/>
+      <text x="340" y="427" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.12em" font-weight="500">CERO</text>
+      <text x="340" y="441" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#F5F2E8" letter-spacing="0.12em" font-weight="500">ESTADO</text>
+
+      <!-- Ring contents -->
+      <text x="340" y="115" text-anchor="middle" font-family="Fraunces,serif" font-size="13" fill="#F5C4B3" font-style="italic">energía · textiles · vivienda · alimentos</text>
+
+      <text x="340" y="158" text-anchor="middle" font-family="Fraunces,serif" font-size="13" fill="#FAC775" font-style="italic">cobertura de salud universal</text>
+
+      <text x="340" y="215" text-anchor="middle" font-family="Fraunces,serif" font-size="12.5" fill="#E8D49A">seguro de desempleo · aranceles</text>
+      <text x="340" y="233" text-anchor="middle" font-family="Fraunces,serif" font-size="12.5" fill="#E8D49A">salud focalizada · educación pública</text>
+      <text x="340" y="251" text-anchor="middle" font-family="Fraunces,serif" font-size="11.5" fill="#C4B47A" font-style="italic">vivienda y energía para los pobres</text>
+
+      <text x="340" y="325" text-anchor="middle" font-family="Fraunces,serif" font-size="13" fill="#9FE1CB" font-style="italic">bomberos · calles y rutas</text>
+
+      <text x="340" y="383" text-anchor="middle" font-family="Fraunces,serif" font-size="12.5" fill="#C0DD97" font-weight="500">policía · ejército · justicia</text>
+
+      <!-- Left side labels with leaders -->
+      <text x="155" y="90" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#E24B4A">SOCIALISMO</text>
+      <text x="155" y="105" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#E24B4A">Y FASCISMO</text>
+      <text x="155" y="120" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">control total</text>
+      <line x1="162" y1="100" x2="270" y2="120" stroke="#E24B4A" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <circle cx="270" cy="120" r="2.5" fill="#E24B4A"/>
+
+      <text x="120" y="170" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#FF8C1A">PROGRESISMO</text>
+      <text x="120" y="185" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">estado de bienestar</text>
+      <line x1="127" y1="175" x2="245" y2="163" stroke="#FF8C1A" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <circle cx="245" cy="163" r="2.5" fill="#FF8C1A"/>
+
+      <text x="95" y="240" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#D4A04A">CONSERVADURISMO</text>
+      <text x="95" y="255" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">mercado + red mínima</text>
+      <line x1="102" y1="245" x2="225" y2="232" stroke="#D4A04A" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <circle cx="225" cy="232" r="2.5" fill="#D4A04A"/>
+
+      <text x="125" y="320" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#5DCAA5">LIBERALISMO</text>
+      <text x="125" y="335" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#5DCAA5">CLÁSICO</text>
+      <text x="125" y="350" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">infraestructura básica</text>
+      <line x1="132" y1="330" x2="220" y2="328" stroke="#5DCAA5" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <circle cx="220" cy="328" r="2.5" fill="#5DCAA5"/>
+
+      <text x="155" y="395" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#7FB069">MINARQUISMO</text>
+      <text x="155" y="410" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">solo el monopolio</text>
+      <text x="155" y="423" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">de la violencia</text>
+      <line x1="162" y1="403" x2="250" y2="385" stroke="#7FB069" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <circle cx="250" cy="385" r="2.5" fill="#7FB069"/>
+
+      <text x="170" y="485" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="0.18em" font-weight="500" fill="#F5F2E8">ANARCOCAPITALISMO</text>
+      <text x="170" y="500" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">el mercado provee</text>
+      <text x="170" y="513" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#9C9890" font-style="italic">todos los bienes</text>
+      <line x1="177" y1="495" x2="312" y2="445" stroke="#F5F2E8" stroke-width="0.8" stroke-dasharray="2 3"/>
+      <circle cx="312" cy="445" r="2.5" fill="#F5F2E8"/>
+
+    </svg>
+  </div>
+
+  <div class="footer-note">— Adaptación dark magazine del esquema clásico de Hoppe / Rothbard —</div>
+
+  <section class="commentary">
+    <h2>Cómo leer el mapa</h2>
+    <p>El diagrama es <em>acumulativo</em>: cada ideología no se opone a las que están dentro de su anillo, las contiene. Un progresista no rechaza la policía, el ejército o las calles públicas — los da por descontados y añade encima un sistema de salud universal. Un socialista no rechaza la cobertura de salud, la asume y añade el control sobre energía, vivienda y alimentos.</p>
+
+    <p>La lectura útil del mapa no es horizontal (qué ideología es mejor) sino <em>vertical</em>: en qué punto del anillo cree usted que el Estado deja de añadir valor y empieza a destruirlo.</p>
+
+    <div class="pull-quote">
+      "El Estado es esa gran ficción a través de la cual todo el mundo se esfuerza por vivir a expensas de todos los demás."<br>
+      <span style="font-size:13px;color:#9C9890;font-style:normal;display:block;margin-top:8px;letter-spacing:0.05em">— Frédéric Bastiat</span>
+    </div>
+
+    <p>Cada paso hacia afuera del centro implica trasladar una decisión del cálculo individual al cálculo político — y por tanto del precio al voto, de la voluntariedad a la coerción. El argumento de Mises sobre el cálculo económico aplica en cada anillo: sin precios reales, sin propiedad privada, el planificador opera a ciegas. La diferencia entre los anillos no es de grado, es de <em>tipo de información</em> que pierde la sociedad cuando colectiviza un sector.</p>
+
+    <p>El núcleo negro — anarcocapitalismo, cero Estado — no es una propuesta política realista en ningún horizonte cercano. Es la línea cero del eje, el punto de referencia desde el cual se mide todo lo demás. Útil como brújula, no como destino.</p>
+  </section>
+
+  <div class="meta-bar">
+    <span>Bogotá, Colombia · 2026</span>
+    <span style="margin-left:auto">Compartir: <a href="https://twitter.com/intent/tweet?text=El%20alcance%20del%20Estado%20seg%C3%BAn%20cada%20ideolog%C3%ADa" target="_blank" rel="noopener">X</a></span>
+  </div>
+
+</article>
+</main>
+
+</body>
+</html>
