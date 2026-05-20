@@ -168,20 +168,112 @@
   }
   .meta-bar a:hover { color: #FFA640; }
 
+  /* ============================================
+     Mobile-only "Edificio del Estado" — replaces the rings SVG on small screens.
+     Each floor = one function the state provides. Floors light up cumulatively
+     as the chosen ideology becomes more statist.
+     ============================================ */
+  .building { display: none; }
+
+  .building-axis {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 4px 10px;
+  }
+  .building-axis-left  { color: #E24B4A; }
+  .building-axis-right { color: #7FB069; }
+
+  .building-frame {
+    border: 1px solid #3D3B36;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+  }
+  .floor {
+    --floor-accent: #6B685F;
+    position: relative;
+    padding: 14px 18px 14px 38px;
+    border-top: 1px dashed #3D3B36;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.38;
+    transition: opacity 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+  }
+  .floor:first-child { border-top: none; }
+  .floor::before {
+    content: "×";
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #6B685F;
+    transition: color 0.4s ease, content 0s;
+  }
+  .floor-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #6B685F;
+    line-height: 1.4;
+    flex: 1;
+    transition: color 0.4s ease, font-style 0.3s ease;
+  }
+  .floor.lit { opacity: 1; }
+  .floor.lit::before { content: "✓"; color: var(--floor-accent); }
+  .floor.lit .floor-label { font-style: normal; color: #E8E6DC; }
+  .floor.lit { background: var(--floor-fill, transparent); }
+  .floor.new {
+    box-shadow: inset 4px 0 0 var(--floor-accent), 0 0 18px -8px var(--floor-accent);
+  }
+  .floor.new::after {
+    content: "AÑADE";
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.20em;
+    color: var(--floor-accent);
+    padding: 2px 6px;
+    border: 1px solid var(--floor-accent);
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .floor[data-layer="minar"] { --floor-accent: #7FB069; --floor-fill: rgba(127, 176, 105, 0.08); }
+  .floor[data-layer="libcl"] { --floor-accent: #5DCAA5; --floor-fill: rgba(93, 202, 165, 0.08); }
+  .floor[data-layer="conse"] { --floor-accent: #D4A04A; --floor-fill: rgba(212, 160, 74, 0.08); }
+  .floor[data-layer="progr"] { --floor-accent: #FF8C1A; --floor-fill: rgba(255, 140, 26, 0.08); }
+  .floor[data-layer="soc"]   { --floor-accent: #E24B4A; --floor-fill: rgba(226, 75, 74, 0.08); }
+
+  .foundation {
+    padding: 14px 18px;
+    border-top: 1px solid #3D3B36;
+    background: rgba(255, 255, 255, 0.02);
+    text-align: center;
+  }
+  .foundation span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: #6B685F;
+  }
+
   @media (max-width: 640px) {
     body { padding: 10px; }
     .page { padding: 8px; }
     .card { padding: 32px 20px 28px; }
     .commentary p { font-size: 14px; }
 
-    /* Mobile: hide all in-SVG annotations (side labels, leader lines, leader dots,
-       inner ring text) so only the rings + core + axis remain. The textual content
-       lives in the info panel and the AÑADE strip above the diagram. */
-    .layer text:not(.core-text),
-    .layer line,
-    .layer circle:not(.ring-shape) {
-      display: none;
-    }
+    /* Replace the rings SVG with the building on mobile */
+    .diagram-wrapper { display: none; }
+    .building { display: block; margin: 0 0 18px; }
 
     /* Tighter info panel on mobile */
     .info-panel { padding: 18px 16px; }
@@ -867,6 +959,41 @@
     </div>
   </aside>
 
+  <!-- Mobile-only "Edificio del Estado": each floor is one function;
+       lit cumulatively from bottom to top as the chosen ideology grows. -->
+  <div class="building" aria-hidden="true">
+    <div class="building-axis">
+      <span class="building-axis-left">↑ Más Estatismo</span>
+      <span class="building-axis-right">Libertad ↓</span>
+    </div>
+    <div class="building-frame">
+      <div class="floor" data-floor="7" data-layer="soc">
+        <span class="floor-label">Energía · Textiles · Vivienda · Alimentos</span>
+      </div>
+      <div class="floor" data-floor="6" data-layer="progr">
+        <span class="floor-label">Cobertura de Salud Universal</span>
+      </div>
+      <div class="floor" data-floor="5" data-layer="conse">
+        <span class="floor-label">Vivienda y Energía para los Pobres</span>
+      </div>
+      <div class="floor" data-floor="4" data-layer="conse">
+        <span class="floor-label">Salud Focalizada · Educación Pública</span>
+      </div>
+      <div class="floor" data-floor="3" data-layer="conse">
+        <span class="floor-label">Seguro de Desempleo · Aranceles</span>
+      </div>
+      <div class="floor" data-floor="2" data-layer="libcl">
+        <span class="floor-label">Bomberos · Calles y Rutas</span>
+      </div>
+      <div class="floor" data-floor="1" data-layer="minar">
+        <span class="floor-label">Policía · Ejército · Justicia</span>
+      </div>
+      <div class="foundation">
+        <span>El mercado provee todo lo demás</span>
+      </div>
+    </div>
+  </div>
+
   <div class="footer-note reveal">— Adaptación dark magazine del esquema clásico de Hoppe / Rothbard —</div>
 
   <section class="commentary scroll-reveal">
@@ -967,11 +1094,25 @@
     updateUI();
   }
 
+  // Mobile building: each ideology lights up floors from 1 up to maxFloor.
+  // anarc → 0 floors, minar → 1, libcl → 2, conse → 5, progr → 6, soc → 7.
+  var floorMap = { anarc: 0, minar: 1, libcl: 2, conse: 5, progr: 6, soc: 7 };
+  var floors   = Array.prototype.slice.call(document.querySelectorAll('.floor'));
+  function updateBuilding(key) {
+    var max = key ? floorMap[key] : -1;
+    floors.forEach(function (f) {
+      var num = parseInt(f.getAttribute('data-floor'), 10);
+      f.classList.toggle('lit', num <= max);
+      f.classList.toggle('new', !!key && f.getAttribute('data-layer') === key);
+    });
+  }
+
   function updateUI() {
     var key = card.getAttribute('data-locked');
     chips.forEach(function (chip) {
       chip.setAttribute('aria-selected', chip.dataset.key === key ? 'true' : 'false');
     });
+    updateBuilding(key);
     if (key) renderPanel(key);
   }
 
