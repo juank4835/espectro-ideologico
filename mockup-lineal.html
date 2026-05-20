@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup · Vista lineal del alcance del Estado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body {
+    background: #1a1a18;
+    color: #E8E6DC;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  .page { max-width: 1080px; margin: 0 auto; padding: 24px; }
+  .card {
+    background: #262624;
+    padding: 56px 48px 48px;
+    border-radius: 12px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    border: 1px solid #3D3B36;
+  }
+
+  /* Header */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #FF8C1A;
+    font-weight: 500;
+  }
+  .badge-mockup {
+    display: inline-block;
+    margin-left: 14px;
+    padding: 3px 9px;
+    border: 1px solid #FF8C1A;
+    border-radius: 3px;
+    color: #FF8C1A;
+    font-size: 9px;
+    letter-spacing: 0.20em;
+    vertical-align: 2px;
+  }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 5vw, 38px);
+    font-weight: 500;
+    line-height: 1.1;
+    color: #F5F2E8;
+    margin: 14px 0 12px;
+    letter-spacing: -0.015em;
+  }
+  .headline em { color: #FF8C1A; font-style: italic; font-weight: 400; }
+  .dek {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #9C9890;
+    max-width: 720px;
+  }
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, #FF8C1A 0%, #FF8C1A 60px, #3D3B36 60px, #3D3B36 100%);
+    margin: 28px 0 36px;
+  }
+
+  /* Dual framing of the cumulative axis (libertad ↔ coerción) */
+  .axis-frame {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    margin-bottom: 8px;
+  }
+  .axis-frame-row {
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .axis-frame-row .axis-frame-left  { color: #7FB069; }
+  .axis-frame-row .axis-frame-right { color: #E24B4A; }
+
+  /* Legend — function categories at top of the chart */
+  .legend {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    margin-bottom: 14px;
+    align-items: end;
+  }
+  .legend-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #6B685F;
+    padding-bottom: 6px;
+  }
+  .legend-bar {
+    display: grid;
+    /* Widths reflect how many items each ideology contributes (weight ~equal-ish) */
+    grid-template-columns: 1fr 1fr 3fr 1fr 2fr;
+    gap: 2px;
+  }
+  .legend-cell {
+    padding: 8px 10px 10px;
+    border-radius: 4px 4px 0 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.25;
+    color: #1a1a18;
+    text-align: center;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .legend-cell .who {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    opacity: 0.7;
+  }
+  .lc-minar { background: #7FB069; }
+  .lc-libcl { background: #5DCAA5; }
+  .lc-conse { background: #D4A04A; }
+  .lc-progr { background: #FF8C1A; }
+  .lc-soc   { background: #E24B4A; color: #2a1715; }
+
+  /* Bars */
+  .bars {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 64px;
+    gap: 24px;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .bar-row:hover { background: rgba(255,255,255,0.02); }
+  .bar-row[aria-selected="true"] {
+    background: rgba(255,255,255,0.04);
+    box-shadow: inset 3px 0 0 var(--row-accent);
+  }
+
+  .bar-label {
+    text-align: right;
+    padding-right: 14px;
+  }
+  .bar-label .name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--row-accent);
+    font-weight: 500;
+    display: block;
+  }
+  .bar-label .sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 11.5px;
+    color: #9C9890;
+    margin-top: 3px;
+    display: block;
+  }
+
+  .bar-track {
+    position: relative;
+    height: 38px;
+    background:
+      linear-gradient(90deg, transparent 30%, rgba(226, 75, 74, 0.10) 100%),
+      rgba(255,255,255,0.02);
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr 1fr 2fr;
+    gap: 2px;
+  }
+  /* Subtle red flicker on the rightmost portion of the chart background — danger zone hint */
+  .bar-track::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 70%, rgba(226, 75, 74, 0.06) 100%);
+    pointer-events: none;
+  }
+  .bar-seg {
+    background: var(--seg-color);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .bar-seg.on { opacity: 0.9; }
+
+  .bar-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: #9C9890;
+    text-align: right;
+  }
+
+  /* Per-ideology accent colors and which segments they include */
+  .bar-row[data-key="anarc"] { --row-accent: #F5F2E8; }
+  .bar-row[data-key="minar"] { --row-accent: #7FB069; }
+  .bar-row[data-key="libcl"] { --row-accent: #5DCAA5; }
+  .bar-row[data-key="conse"] { --row-accent: #D4A04A; }
+  .bar-row[data-key="progr"] { --row-accent: #FF8C1A; }
+  .bar-row[data-key="soc"]   { --row-accent: #E24B4A; }
+
+  /* Market vs state divider — vertical line on the bar marking the "edge" of state domain */
+  .bar-edge {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--row-accent);
+    opacity: 0;
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+    box-shadow: 0 0 8px var(--row-accent);
+    pointer-events: none;
+  }
+  .bar-row[aria-selected="true"] .bar-edge { opacity: 1; }
+
+  /* Detail panel below */
+  .detail {
+    margin-top: 36px;
+    padding: 22px 24px;
+    border: 1px solid #3D3B36;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.18);
+  }
+  .detail-empty {
+    color: #6B685F;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    padding: 12px 0;
+  }
+  .detail-content { display: none; }
+  .detail.has-selection .detail-empty { display: none; }
+  .detail.has-selection .detail-content { display: block; }
+  .detail.has-selection { border-color: var(--detail-accent); }
+
+  .detail-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px 16px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed #3D3B36;
+  }
+  .detail-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #6B685F;
+  }
+  .detail-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 24px;
+    color: #F5F2E8;
+  }
+  .detail-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #9C9890;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 28px;
+  }
+  @media (max-width: 720px) {
+    .detail-grid { grid-template-columns: 1fr; }
+    .legend { grid-template-columns: 1fr; gap: 6px; }
+    .bar-row { grid-template-columns: 1fr; gap: 10px; }
+    .bar-label { text-align: left; padding: 0; }
+    .bar-pct { text-align: left; }
+  }
+
+  .detail-grid h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9C9890;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .detail-list {
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .detail-list li {
+    position: relative;
+    padding: 5px 0 5px 18px;
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    color: #E8E6DC;
+    line-height: 1.45;
+  }
+  .detail-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0; top: 8px;
+    color: #FF8C1A;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+  .detail-list li .new-badge {
+    margin-left: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.20em;
+    color: #FF8C1A;
+    padding: 2px 6px;
+    border: 1px solid #FF8C1A;
+    border-radius: 3px;
+    vertical-align: 2px;
+  }
+
+  .detail-example {
+    background: rgba(255,255,255,0.025);
+    border-radius: 6px;
+    padding: 16px 18px;
+  }
+  .detail-example h4 { margin-bottom: 10px; }
+  .example-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .example-chip {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid #3D3B36;
+    color: #C4C0B5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border-radius: 3px;
+  }
+  .detail-example p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: #9C9890;
+    line-height: 1.5;
+  }
+
+  /* Diff bar — what the selected ideology adds vs the previous one */
+  .diff-strip {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-left: 3px solid var(--detail-accent);
+    background: rgba(255,255,255,0.02);
+    font-family: 'Fraunces', serif;
+    font-size: 13.5px;
+    color: #C4C0B5;
+    line-height: 1.4;
+  }
+  .diff-strip strong {
+    color: var(--detail-accent);
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  /* Footer note */
+  .mockup-note {
+    margin-top: 36px;
+    padding: 16px 20px;
+    border: 1px dashed #3D3B36;
+    border-radius: 6px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: #9C9890;
+    line-height: 1.55;
+  }
+  .mockup-note strong { color: #FF8C1A; font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; }
+</style>
+</head>
+<body>
+<main class="page">
+<article class="card">
+
+  <div class="eyebrow">Mockup alternativo<span class="badge-mockup">v2 · LINEAL</span></div>
+  <h1 class="headline">No es lo que el Estado <em>provee</em>.<br/>Es lo que el mercado <em>pierde</em>.</h1>
+  <p class="dek">Cada segmento de la barra es una esfera de la vida económica que el Estado le sustrae al cálculo de precios. Mientras más larga la barra, más coerción y menos información tiene la sociedad para coordinarse — el argumento del cálculo económico de Mises aplicado al espectro entero.</p>
+  <div class="rule"></div>
+
+  <!-- Dual framing of the cumulative axis: libertad ← → coerción -->
+  <div class="axis-frame">
+    <div class="axis-frame-row">
+      <span class="axis-frame-left">← Libertad · cálculo de precios intacto</span>
+      <span class="axis-frame-right">Coerción · cálculo económico perdido →</span>
+    </div>
+  </div>
+
+  <!-- Legend: function categories at top, colored by which ideology adds them -->
+  <div class="legend" aria-hidden="true">
+    <div class="legend-title">El Estado sustrae<br/>al mercado →</div>
+    <div class="legend-bar">
+      <div class="legend-cell lc-minar">
+        Policía · Ejército · Justicia
+        <span class="who">añade minarquismo</span>
+      </div>
+      <div class="legend-cell lc-libcl">
+        Bomberos · Calles
+        <span class="who">añade liberalismo clás.</span>
+      </div>
+      <div class="legend-cell lc-conse">
+        Seguro Desempleo · Aranceles · Salud Focalizada · Educación · Vivienda Pobres
+        <span class="who">añade conservadurismo</span>
+      </div>
+      <div class="legend-cell lc-progr">
+        Salud Universal
+        <span class="who">añade progresismo</span>
+      </div>
+      <div class="legend-cell lc-soc">
+        Energía · Textiles · Vivienda · Alimentos
+        <span class="who">añade socialismo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bars, one per ideology, ordered top→bottom from libertarian to statist -->
+  <div class="bars" role="tablist" aria-label="Selector de ideología">
+    <div class="bar-row" role="tab" aria-selected="false" tabindex="0" data-key="anarc">
+      <div class="bar-label">
+        <span class="name">Anarcocapitalismo</span>
+        <span class="sub">El mercado provee todos los bienes</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-seg" style="--seg-color: #7FB069"></div>
+        <div class="bar-seg" style="--seg-color: #5DCAA5"></div>
+        <div class="bar-seg" style="--seg-color: #D4A04A"></div>
+        <div class="bar-seg" style="--seg-color: #FF8C1A"></div>
+        <div class="bar-seg" style="--seg-color: #E24B4A"></div>
+        <div class="bar-edge" style="left: 0%"></div>
+      </div>
+      <div class="bar-pct">0% Estado</div>
+    </div>
+
+    <div class="bar-row" role="tab" aria-selected="false" tabindex="0" data-key="minar">
+      <div class="bar-label">
+        <span class="name">Minarquismo</span>
+        <span class="sub">Solo el monopolio de la violencia</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-seg on" style="--seg-color: #7FB069"></div>
+        <div class="bar-seg" style="--seg-color: #5DCAA5"></div>
+        <div class="bar-seg" style="--seg-color: #D4A04A"></div>
+        <div class="bar-seg" style="--seg-color: #FF8C1A"></div>
+        <div class="bar-seg" style="--seg-color: #E24B4A"></div>
+        <div class="bar-edge" style="left: 12.5%"></div>
+      </div>
+      <div class="bar-pct">~12%</div>
+    </div>
+
+    <div class="bar-row" role="tab" aria-selected="false" tabindex="0" data-key="libcl">
+      <div class="bar-label">
+        <span class="name">Liberalismo Clásico</span>
+        <span class="sub">Infraestructura básica</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-seg on" style="--seg-color: #7FB069"></div>
+        <div class="bar-seg on" style="--seg-color: #5DCAA5"></div>
+        <div class="bar-seg" style="--seg-color: #D4A04A"></div>
+        <div class="bar-seg" style="--seg-color: #FF8C1A"></div>
+        <div class="bar-seg" style="--seg-color: #E24B4A"></div>
+        <div class="bar-edge" style="left: 25%"></div>
+      </div>
+      <div class="bar-pct">~25%</div>
+    </div>
+
+    <div class="bar-row" role="tab" aria-selected="false" tabindex="0" data-key="conse">
+      <div class="bar-label">
+        <span class="name">Conservadurismo</span>
+        <span class="sub">Mercado + red mínima</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-seg on" style="--seg-color: #7FB069"></div>
+        <div class="bar-seg on" style="--seg-color: #5DCAA5"></div>
+        <div class="bar-seg on" style="--seg-color: #D4A04A"></div>
+        <div class="bar-seg" style="--seg-color: #FF8C1A"></div>
+        <div class="bar-seg" style="--seg-color: #E24B4A"></div>
+        <div class="bar-edge" style="left: 62.5%"></div>
+      </div>
+      <div class="bar-pct">~62%</div>
+    </div>
+
+    <div class="bar-row" role="tab" aria-selected="false" tabindex="0" data-key="progr">
+      <div class="bar-label">
+        <span class="name">Progresismo</span>
+        <span class="sub">Estado de Bienestar</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-seg on" style="--seg-color: #7FB069"></div>
+        <div class="bar-seg on" style="--seg-color: #5DCAA5"></div>
+        <div class="bar-seg on" style="--seg-color: #D4A04A"></div>
+        <div class="bar-seg on" style="--seg-color: #FF8C1A"></div>
+        <div class="bar-seg" style="--seg-color: #E24B4A"></div>
+        <div class="bar-edge" style="left: 75%"></div>
+      </div>
+      <div class="bar-pct">~75%</div>
+    </div>
+
+    <div class="bar-row" role="tab" aria-selected="false" tabindex="0" data-key="soc">
+      <div class="bar-label">
+        <span class="name">Socialismo y Fascismo</span>
+        <span class="sub">Control total</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-seg on" style="--seg-color: #7FB069"></div>
+        <div class="bar-seg on" style="--seg-color: #5DCAA5"></div>
+        <div class="bar-seg on" style="--seg-color: #D4A04A"></div>
+        <div class="bar-seg on" style="--seg-color: #FF8C1A"></div>
+        <div class="bar-seg on" style="--seg-color: #E24B4A"></div>
+        <div class="bar-edge" style="left: 100%"></div>
+      </div>
+      <div class="bar-pct">100% Estado</div>
+    </div>
+  </div>
+
+  <!-- Detail panel — fills when an ideology is selected -->
+  <aside class="detail" aria-live="polite">
+    <div class="detail-empty">Selecciona una ideología (click en cualquier barra) para ver qué provee el Estado y ejemplos históricos.</div>
+    <div class="detail-content">
+      <header class="detail-head">
+        <span class="detail-eyebrow">El Estado provee bajo</span>
+        <h3 class="detail-title"></h3>
+        <span class="detail-sub"></span>
+      </header>
+      <div class="detail-grid">
+        <section>
+          <h4>Funciones del Estado</h4>
+          <ul class="detail-list"></ul>
+          <div class="diff-strip"></div>
+        </section>
+        <section class="detail-example">
+          <h4>Ejemplos históricos</h4>
+          <div class="example-list"></div>
+          <p class="example-note"></p>
+        </section>
+      </div>
+    </aside>
+  </aside>
+
+  <div class="mockup-note">
+    <strong>Lectura editorial</strong><br/>
+    Cada paso hacia la derecha sustrae un sector al cálculo de precios — al mecanismo que coordina información dispersa sin que nadie tenga que decidirla centralmente (Hayek, 1945). La diferencia entre los anillos no es de grado sino de <em>tipo de información que la sociedad pierde</em>. Por eso la barra crece a la derecha en un degradado que tiende al rojo: no porque "más Estado sea malo por gusto", sino porque cada esfera coercionada es un sector que opera con menos información — y la historia, como se ve en los ejemplos, lo confirma.
+  </div>
+
+</article>
+</main>
+
+<script>
+(function () {
+  var rows = document.querySelectorAll('.bar-row');
+  var detail = document.querySelector('.detail');
+  var ideologies = {
+    anarc: {
+      name: 'Anarcocapitalismo',
+      sub: 'El mercado provee todos los bienes',
+      accent: '#F5F2E8',
+      items: [],
+      newItems: [],
+      diff: '<strong>Línea cero del eje</strong>: ningún sector se sustrae al cálculo de precios. No es propuesta política realista; sirve como brújula para medir cuánta información pierde la sociedad en cada paso hacia la derecha.',
+      examples: ['Sin precedente histórico nacional', 'Propuesta teórica · Rothbard · Hoppe · David Friedman'],
+      note: 'Útil como referencia analítica, no como destino. Hayek y Mises mismos rechazaban el anarcocap por considerar la propiedad inejecutable sin un monopolio mínimo de la coerción.'
+    },
+    minar: {
+      name: 'Minarquismo',
+      sub: 'Solo el monopolio de la violencia',
+      accent: '#7FB069',
+      items: ['Policía · Ejército · Justicia'],
+      newItems: ['Policía · Ejército · Justicia'],
+      diff: 'Sustrae al mercado <strong>el monopolio de la violencia</strong>. Es la concesión que casi todos los economistas — incluso liberales — hacen: sin Estado que haga cumplir contratos y propiedad, no hay mercado. Rothbard discrepa: argumenta que tribunales y defensa privados son viables.',
+      examples: ['Hong Kong (1960–90)', 'Singapur temprano', 'Liechtenstein'],
+      note: 'Aún en sus mejores aproximaciones históricas, el Estado mínimo tiende a expandirse — la "ratchet effect" de Higgs. Ninguno se mantuvo estrictamente minarquista.'
+    },
+    libcl: {
+      name: 'Liberalismo Clásico',
+      sub: 'Infraestructura básica',
+      accent: '#5DCAA5',
+      items: ['Policía · Ejército · Justicia', 'Bomberos · Calles y Rutas'],
+      newItems: ['Bomberos · Calles y Rutas'],
+      diff: 'Sustrae al mercado <strong>infraestructura básica</strong>. La justificación es el argumento de "bienes públicos" — pero Rothbard y Hoppe muestran que carreteras, bomberos y faros han sido provistos privadamente. La línea entre "necesario" y "conveniente para el Estado" empieza a borrarse aquí.',
+      examples: ['EE.UU. siglo XIX', 'Reino Unido victoriano', 'Suiza decimonónica'],
+      note: 'Período de mayor crecimiento económico per cápita de la historia humana. Coincide — no por casualidad, según Mises — con la menor intervención estatal moderna.'
+    },
+    conse: {
+      name: 'Conservadurismo',
+      sub: 'Mercado + red mínima',
+      accent: '#D4A04A',
+      items: ['Policía · Ejército · Justicia', 'Bomberos · Calles y Rutas', 'Seguro de Desempleo · Aranceles', 'Salud Focalizada · Educación Pública', 'Vivienda y Energía para los Pobres'],
+      newItems: ['Seguro de Desempleo · Aranceles', 'Salud Focalizada · Educación Pública', 'Vivienda y Energía para los Pobres'],
+      diff: 'Primer salto serio: <strong>tres categorías sustraídas al cálculo</strong>. Seguro de desempleo genera riesgo moral, aranceles distorsionan precios relativos, focalización requiere burócratas decidiendo quién es "pobre" — pierden información que el mercado revelaría.',
+      examples: ['EE.UU. (Reagan)', 'Reino Unido (Thatcher)', 'Alemania (Merkel)', 'Chile post-Pinochet'],
+      note: 'Inestable en el sentido de Mises: una vez que el Estado interviene un sector, las distorsiones generan nuevos problemas que justifican más intervención. La economía "obstaculizada" tiende a expandirse hacia más estatismo, no a estabilizarse.'
+    },
+    progr: {
+      name: 'Progresismo',
+      sub: 'Estado de Bienestar',
+      accent: '#FF8C1A',
+      items: ['Policía · Ejército · Justicia', 'Bomberos · Calles y Rutas', 'Seguro de Desempleo · Aranceles', 'Salud Focalizada · Educación Pública', 'Vivienda y Energía para los Pobres', 'Cobertura de Salud Universal'],
+      newItems: ['Cobertura de Salud Universal'],
+      diff: 'Sustrae al mercado <strong>uno de los sectores más complejos</strong>: salud. Sin precios reales, no hay señal de escasez. El racionamiento es implícito: listas de espera, calidad degradada, escasez de especialistas. El sistema funciona mientras hay base productiva privada que lo financie.',
+      examples: ['Suecia · Dinamarca', 'Canadá · Reino Unido (NHS)', 'España · Francia'],
+      note: 'Los modelos nórdicos suelen citarse como éxito, pero su productividad subyacente y demografía dependen del período liberal previo. Crecimiento estancado desde los 70, listas de espera crecientes, presión fiscal en aumento.'
+    },
+    soc: {
+      name: 'Socialismo y Fascismo',
+      sub: 'Control total',
+      accent: '#E24B4A',
+      items: ['Policía · Ejército · Justicia', 'Bomberos · Calles y Rutas', 'Seguro de Desempleo · Aranceles', 'Salud Focalizada · Educación Pública', 'Vivienda y Energía para los Pobres', 'Cobertura de Salud Universal', 'Energía · Textiles · Vivienda · Alimentos'],
+      newItems: ['Energía · Textiles · Vivienda · Alimentos'],
+      diff: 'Sustrae al mercado <strong>la producción de bienes de consumo</strong>. Aquí el argumento de Mises (1920) se aplica en su forma más cruda: sin propiedad privada de los medios de producción, no hay precios; sin precios, el planificador opera a ciegas. <em>Toda</em> aplicación histórica ha colapsado en cálculo o terminado en autoritarismo.',
+      examples: ['URSS · Cuba · Corea del Norte', 'Venezuela (Chávez/Maduro)', 'Italia fascista · Alemania nacionalsocialista', 'Argentina (peronismo)'],
+      note: 'Resultado empírico: hiperinflación crónica, escasez sistemática, mercado negro, fuga de capital humano. Socialismo y fascismo difieren en propiedad nominal (estatal vs. corporativa-dirigida) pero coinciden en lo decisivo: colapso del cálculo económico + autoritarismo necesario para sostener la ficción.'
+    }
+  };
+
+  function select(key) {
+    var data = ideologies[key];
+    if (!data) return;
+    rows.forEach(function (r) { r.setAttribute('aria-selected', r.dataset.key === key ? 'true' : 'false'); });
+    detail.classList.add('has-selection');
+    detail.style.setProperty('--detail-accent', data.accent);
+    detail.querySelector('.detail-title').textContent = data.name;
+    detail.querySelector('.detail-sub').textContent = data.sub;
+    var list = detail.querySelector('.detail-list');
+    list.innerHTML = '';
+    if (data.items.length === 0) {
+      var li = document.createElement('li');
+      li.style.fontStyle = 'italic';
+      li.style.color = '#6B685F';
+      li.textContent = '— El mercado provee todos los bienes —';
+      list.appendChild(li);
+    } else {
+      data.items.forEach(function (it) {
+        var li = document.createElement('li');
+        li.textContent = it;
+        if (data.newItems.indexOf(it) !== -1) {
+          var span = document.createElement('span');
+          span.className = 'new-badge';
+          span.textContent = 'AÑADE';
+          li.appendChild(span);
+        }
+        list.appendChild(li);
+      });
+    }
+    detail.querySelector('.diff-strip').innerHTML = data.diff;
+    var exList = detail.querySelector('.example-list');
+    exList.innerHTML = '';
+    data.examples.forEach(function (e) {
+      var chip = document.createElement('span');
+      chip.className = 'example-chip';
+      chip.textContent = e;
+      exList.appendChild(chip);
+    });
+    detail.querySelector('.example-note').textContent = data.note;
+  }
+
+  rows.forEach(function (r) {
+    r.addEventListener('click', function () { select(r.dataset.key); });
+    r.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(r.dataset.key); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
