@@ -290,6 +290,129 @@
   .card[data-locked="anarc"] .layer-anarc { filter: drop-shadow(0 0 14px rgba(245, 242, 232, 0.35)); }
 
   /* ============================================
+     Mejora 1 · "AÑADE" strip above the diagram
+     ============================================ */
+  .adds-strip {
+    margin: 0 0 18px;
+    padding: 14px 18px;
+    border: 1px dashed #3D3B36;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.015);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 14px;
+    min-height: 52px;
+    transition: border-color 0.4s ease, background 0.4s ease;
+  }
+  .card[data-locked] .adds-strip { border-color: var(--accent); border-style: solid; }
+  .adds-strip-empty {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: #6B685F;
+  }
+  .card[data-locked] .adds-strip-empty { display: none; }
+  .adds-strip-content { display: none; align-items: baseline; flex-wrap: wrap; gap: 6px 10px; width: 100%; }
+  .card[data-locked] .adds-strip-content { display: flex; }
+  .adds-strip-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .adds-strip-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #F5F2E8;
+  }
+  .adds-strip-arrow { color: #6B685F; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin: 0 4px; }
+  .adds-strip-fn {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--accent);
+  }
+  .adds-strip-empty-state {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #6B685F;
+  }
+
+  /* ============================================
+     Mejora 2 · Axis ticks with mini ideology codes
+     ============================================ */
+  .axis-tick {
+    stroke: #6B685F;
+    stroke-width: 1;
+    opacity: 0.55;
+  }
+  .axis-tick-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    fill: #6B685F;
+  }
+
+  /* ============================================
+     Mejora 3 · Historical examples in info panel
+     ============================================ */
+  .info-examples {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px dashed #3D3B36;
+  }
+  .info-examples h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9C9890;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .example-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .example-chip {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #3D3B36;
+    color: #C4C0B5;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border-radius: 3px;
+  }
+  .info-examples p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: #9C9890;
+    line-height: 1.5;
+  }
+
+  /* Footer back link */
+  .back-link {
+    display: inline-block;
+    margin-top: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #FF8C1A;
+    text-decoration: none;
+    border-bottom: 1px dotted #FF8C1A;
+  }
+
+  /* ============================================
      Axis end glow — pulsing arrows at the extremes
      ============================================ */
   @media (prefers-reduced-motion: no-preference) {
@@ -567,6 +690,17 @@
     <button class="chip" type="button" role="tab" aria-selected="false" data-key="soc">Socialismo</button>
   </nav>
 
+  <!-- Mejora 1: "AÑADE" strip above the diagram -->
+  <div class="adds-strip" aria-live="polite">
+    <div class="adds-strip-empty">↑ Selecciona una ideología para ver, directamente sobre el diagrama, qué funciones añade respecto a la anterior.</div>
+    <div class="adds-strip-content">
+      <span class="adds-strip-label">Añade en este nivel:</span>
+      <span class="adds-strip-name"></span>
+      <span class="adds-strip-arrow">→</span>
+      <span class="adds-strip-fn"></span>
+    </div>
+  </div>
+
   <div class="diagram-wrapper">
     <svg viewBox="-50 0 730 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diag-title diag-desc">
       <title id="diag-title">Espectro ideológico del alcance del Estado</title>
@@ -584,6 +718,22 @@
           <text x="640" y="572" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="0.22em" text-anchor="end" fill="#7FB069" font-weight="500">LIBERALISMO</text>
         </g>
         <text x="640" y="586" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="0.18em" text-anchor="end" fill="#6B685F" font-style="italic">(Orden Espontáneo)</text>
+
+        <!-- Mejora 2: Axis ticks with mini ideology codes — give context to the indicator dot -->
+        <g class="axis-ticks">
+          <line class="axis-tick" x1="644" x2="656" y1="100" y2="100"/>
+          <text class="axis-tick-label" x="665" y="103">SO</text>
+          <line class="axis-tick" x1="644" x2="656" y1="190" y2="190"/>
+          <text class="axis-tick-label" x="665" y="193">PR</text>
+          <line class="axis-tick" x1="644" x2="656" y1="280" y2="280"/>
+          <text class="axis-tick-label" x="665" y="283">CO</text>
+          <line class="axis-tick" x1="644" x2="656" y1="370" y2="370"/>
+          <text class="axis-tick-label" x="665" y="373">LC</text>
+          <line class="axis-tick" x1="644" x2="656" y1="460" y2="460"/>
+          <text class="axis-tick-label" x="665" y="463">MI</text>
+          <line class="axis-tick" x1="644" x2="656" y1="530" y2="530"/>
+          <text class="axis-tick-label" x="665" y="533">AN</text>
+        </g>
 
         <!-- Position indicator: slides up/down the axis to mark the selected ideology -->
         <g class="axis-indicator-wrap">
@@ -682,6 +832,13 @@
           <ul class="info-list info-market-list"></ul>
         </section>
       </div>
+      <!-- Mejora 3: Historical examples — concrete anchor for the abstract ideology -->
+      <div class="info-examples">
+        <h4>Ejemplos históricos / aproximaciones</h4>
+        <div class="example-chips"></div>
+        <p class="example-note"></p>
+      </div>
+
       <button class="info-reset" type="button">← Reiniciar selección · Esc</button>
     </div>
   </aside>
@@ -724,13 +881,26 @@
 
   // Cumulative ideology data, ordered from libertarian core outward.
   // items = the functions THIS ideology adds on top of the previous one.
+  // examples = historical anchors (countries / leaders / regimes).
   var ideologies = [
-    { key: 'anarc', name: 'Anarcocapitalismo',     sub: 'El mercado provee todos los bienes', items: [] },
-    { key: 'minar', name: 'Minarquismo',           sub: 'Solo el monopolio de la violencia',  items: ['Policía · Ejército · Justicia'] },
-    { key: 'libcl', name: 'Liberalismo Clásico',   sub: 'Infraestructura básica',             items: ['Bomberos · Calles y Rutas'] },
-    { key: 'conse', name: 'Conservadurismo',       sub: 'Mercado + red mínima',               items: ['Seguro de Desempleo · Aranceles', 'Salud Focalizada · Educación Pública', 'Vivienda y Energía para los Pobres'] },
-    { key: 'progr', name: 'Progresismo',           sub: 'Estado de Bienestar',                items: ['Cobertura de Salud Universal'] },
-    { key: 'soc',   name: 'Socialismo y Fascismo', sub: 'Control total',                      items: ['Energía · Textiles · Vivienda · Alimentos'] }
+    { key: 'anarc', name: 'Anarcocapitalismo',     sub: 'El mercado provee todos los bienes', items: [],
+      examples: ['Propuesta teórica', 'Rothbard · Hoppe'],
+      note: 'No hay precedente histórico nacional. Útil como línea cero del eje, no como destino realista.' },
+    { key: 'minar', name: 'Minarquismo',           sub: 'Solo el monopolio de la violencia',  items: ['Policía · Ejército · Justicia'],
+      examples: ['Hong Kong (1960–90)', 'Singapur temprano', 'Liechtenstein'],
+      note: 'El Estado se limita a policía, defensa y justicia; todo lo demás queda al mercado.' },
+    { key: 'libcl', name: 'Liberalismo Clásico',   sub: 'Infraestructura básica',             items: ['Bomberos · Calles y Rutas'],
+      examples: ['EE.UU. siglo XIX', 'Reino Unido victoriano', 'Suiza decimonónica'],
+      note: 'Adam Smith · Bastiat · Mill. Estado pequeño + bienes públicos clásicos. Período de mayor crecimiento per cápita moderno.' },
+    { key: 'conse', name: 'Conservadurismo',       sub: 'Mercado + red mínima',               items: ['Seguro de Desempleo · Aranceles', 'Salud Focalizada · Educación Pública', 'Vivienda y Energía para los Pobres'],
+      examples: ['EE.UU. (Reagan)', 'Reino Unido (Thatcher)', 'Alemania (Merkel)', 'Chile post-Pinochet'],
+      note: 'Coalición pragmática: confianza en precios para la mayoría de bienes, focalización pública en los más vulnerables.' },
+    { key: 'progr', name: 'Progresismo',           sub: 'Estado de Bienestar',                items: ['Cobertura de Salud Universal'],
+      examples: ['Suecia · Dinamarca', 'Canadá · Reino Unido (NHS)', 'España · Francia'],
+      note: 'Universaliza lo que el conservadurismo focaliza. Mercado en producción, Estado en garantías sociales.' },
+    { key: 'soc',   name: 'Socialismo y Fascismo', sub: 'Control total',                      items: ['Energía · Textiles · Vivienda · Alimentos'],
+      examples: ['URSS · Cuba · Corea del Norte', 'Venezuela (Chávez/Maduro)', 'Italia fascista · Alemania nacionalsocialista'],
+      note: 'Argumento del cálculo económico de Mises: sin precios reales, el planificador opera a ciegas. Todo experimento histórico ha terminado en colapso económico o autoritarismo.' }
   ];
 
   function indexOf(key) {
@@ -809,6 +979,32 @@
         li.textContent = it.text;
         marketList.appendChild(li);
       });
+    }
+
+    // Mejora 1: populate the "AÑADE" strip above the diagram
+    var stripName = document.querySelector('.adds-strip-name');
+    var stripFn   = document.querySelector('.adds-strip-fn');
+    if (stripName && stripFn) {
+      stripName.textContent = sel.name;
+      if (sel.items.length === 0) {
+        stripFn.textContent = 'nada — el mercado provee todos los bienes';
+      } else {
+        stripFn.textContent = sel.items.join(' · ');
+      }
+    }
+
+    // Mejora 3: populate historical examples in info-panel
+    var chips = panel.querySelector('.example-chips');
+    var note  = panel.querySelector('.example-note');
+    if (chips && note) {
+      chips.innerHTML = '';
+      sel.examples.forEach(function (ex) {
+        var span = document.createElement('span');
+        span.className = 'example-chip';
+        span.textContent = ex;
+        chips.appendChild(span);
+      });
+      note.textContent = sel.note;
     }
   }
 
